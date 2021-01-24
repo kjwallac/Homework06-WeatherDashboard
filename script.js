@@ -8,6 +8,7 @@ $(document).ready(function () {
   populateHistory();
 });
 
+//I am aware that API keys should not be uploaded to a repo on github, but no way else to do the homework as needed
 const apiKey = "2569a30cd8fc78bd718b309548ae5684";
 
 async function getWeather(cityName) {
@@ -15,7 +16,9 @@ async function getWeather(cityName) {
     url: `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`,
     method: "GET",
   });
+  //convert temp K to temp F
   const tempF = (response1.main.temp - 273.15) * 1.8 + 32;
+
   $(".currentConditions").css("display", "block");
   $("#cityName").text(`${response1.name} (${new Date().toLocaleDateString()})`);
   $("#currentConditionsIcon").attr(
@@ -28,6 +31,8 @@ async function getWeather(cityName) {
 
   //response1 needed for parameters required in getUVIndex function
   await getUVIndex(response1.coord.lat, response1.coord.lon);
+
+  //pulls proper city name from API instead of using search text to add to the history
   addToHistory(response1.name);
 }
 
@@ -36,10 +41,12 @@ async function getForecast(cityName) {
     url: `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${apiKey}`,
     method: "GET",
   });
-  console.log(response2);
+  //formats date as MM/DD/YYYY
   let currentDate = new Date().toLocaleDateString();
   let cardCount = 0;
+  //clear out any existing cards when searching a new city
   $("#forecastCards").empty();
+  //for of loop to cycle through creating cards for forecast
   for (const day of response2.list) {
     const tempF = (day.main.temp - 273.15) * 1.8 + 32;
     const date = new Date(day.dt * 1000).toLocaleDateString();
@@ -48,19 +55,22 @@ async function getForecast(cityName) {
       currentDate = date;
       cardCount++;
     }
+    //cuts off number of days to show forecast at 5
     if (cardCount >= 5) {
       break;
     }
   }
 }
-
+//getUVIndex uses coords instead of city name; function called above in getWeather where coords are available in response1
 async function getUVIndex(lat, lon) {
   const response3 = await $.ajax({
     url: `http://api.openweathermap.org/data/2.5/uvi?lat=${lat}&lon=${lon}&appid=${apiKey}`,
     method: "GET",
   });
   $("#uvIndex").text(`${response3.value}`);
+  //remove existing class from previous search
   $("#uvIndex").removeClass();
+  //assigns new class based on UV Index integer
   if (response3.value < 3) {
     $("#uvIndex").addClass("btn-success");
   } else if (response3.value < 7) {
@@ -76,6 +86,7 @@ function addToHistory(cityName) {
   if (cities.includes(cityName)) {
     return;
   }
+  //limits history length to previous 5 cities
   while (cities.length > 5) {
     cities.shift();
   }
