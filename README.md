@@ -2,13 +2,13 @@
 Repository for Homework 06 - Weather Dashboard
 
 ## Project Screen Shots
-![WeatherDashoard]
-(weatherdash.png)
+![WeatherDashoard](weatherdash.png)
 
 ## User Story
-AS A traveler
-I WANT to see the weather outlook for multiple cities
-SO THAT I can plan a trip accordingly
+AS A traveler  
+I WANT to see the weather outlook for multiple cities  
+SO THAT I can plan a trip accordingly  
+
 ## Weather Dashboard instructions
 1. Type city name into the input field.
 2. Click search button to display current weather info and 5 day forecast
