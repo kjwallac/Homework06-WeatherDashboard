@@ -23,7 +23,7 @@ async function getWeather(cityName) {
   $("#cityName").text(`${response1.name} (${new Date().toLocaleDateString()})`);
   $("#currentConditionsIcon").attr(
     "src",
-    `http://openweathermap.org/img/w/${response1.weather[0].icon}.png`
+    `https://openweathermap.org/img/w/${response1.weather[0].icon}.png`
   );
   $("#temperature").text(`Temperature: ${tempF.toFixed(2)}˚F`);
   $("#humidity").text(`Humidity: ${response1.main.humidity}%`);
@@ -64,7 +64,7 @@ async function getForecast(cityName) {
 //getUVIndex uses coords instead of city name; function called above in getWeather where coords are available in response1
 async function getUVIndex(lat, lon) {
   const response3 = await $.ajax({
-    url: `http://api.openweathermap.org/data/2.5/uvi?lat=${lat}&lon=${lon}&appid=${apiKey}`,
+    url: `https://api.openweathermap.org/data/2.5/uvi?lat=${lat}&lon=${lon}&appid=${apiKey}`,
     method: "GET",
   });
   $("#uvIndex").text(`${response3.value}`);
@@ -122,7 +122,7 @@ function buildCard(date, icon, temp, humidity) {
   <div class="card-body">
     <h5 class="card-title">${date}</h5>
     <h6 class="card-subtitle mb-2 text-muted">
-      <img src="http://openweathermap.org/img/w/${icon}.png" />
+      <img src="https://openweathermap.org/img/w/${icon}.png" />
     </h6>
     <p class="card-text">Temp: <span>${temp}</span>˚F</p>
     <p class="card-text">Humidity: <span>${humidity}</span>%</p>
