@@ -5,6 +5,7 @@ $(document).ready(function () {
     getWeather(cityName);
     getForecast(cityName);
   });
+  populateHistory();
 });
 
 const apiKey = "2569a30cd8fc78bd718b309548ae5684";
@@ -27,6 +28,7 @@ async function getWeather(cityName) {
 
   //response1 needed for parameters required in getUVIndex function
   await getUVIndex(response1.coord.lat, response1.coord.lon);
+  addToHistory(response1.name);
 }
 
 async function getForecast(cityName) {
@@ -51,4 +53,34 @@ async function getUVIndex(lat, lon) {
   } else {
     $("#uvIndex").addClass("btn-danger");
   }
+}
+
+function addToHistory(cityName) {
+  const citiesJSON = localStorage.getItem("searchHistory") || "[]";
+  const cities = JSON.parse(citiesJSON);
+  if (cities.includes(cityName)) {
+    return;
+  }
+  while (cities.length > 5) {
+    cities.shift();
+  }
+  cities.push(cityName);
+  localStorage.setItem("searchHistory", JSON.stringify(cities));
+  populateHistory();
+}
+
+function populateHistory() {
+  const citiesJSON = localStorage.getItem("searchHistory") || "[]";
+  const cities = JSON.parse(citiesJSON);
+  $("#historyList").empty();
+  for (const city of cities) {
+    $("#historyList").append(
+      `<li id='templateHistoryItem' class='list-group-item'>${city}</li>`
+    );
+  }
+  $(".list-group-item").on("click", function () {
+    const cityName = this.innerText;
+    getWeather(cityName);
+    getForecast(cityName);
+  });
 }

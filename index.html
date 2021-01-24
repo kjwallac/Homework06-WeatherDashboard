@@ -23,9 +23,6 @@
     <header class="container-fluid text-center text-white bg-dark">
       <h1>Weather Dashboard</h1>
     </header>
-    <!-- colum float left for search for a city form and previously sesarched cities -->
-    <!-- two rows, top for the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index
-bottom row for 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, and the humidity -->
 
     <container>
       <div class="container">
@@ -50,6 +47,15 @@ bottom row for 5-day forecast that displays the date, an icon representation of 
                 ></button>
               </div>
             </div>
+            <ul id="historyList" class="list-group" style="cursor: pointer">
+              <li
+                id="templateHistoryItem"
+                class="list-group-item"
+                style="display: none"
+              >
+                _cityName_
+              </li>
+            </ul>
           </div>
 
           <div class="col-sm-9">
