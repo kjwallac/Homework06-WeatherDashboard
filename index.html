@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.1/css/v4-shims.css"
+    />
+    <title>Weather Dashboard</title>
+  </head>
+  <body>
+    <header class="container-fluid text-center text-white bg-dark">
+      <h1>Weather Dashboard</h1>
+    </header>
+    <!-- colum float left for search for a city form and previously sesarched cities -->
+    <!-- two rows, top for the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index
+bottom row for 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, and the humidity -->
+
+    <container>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-3">
+            <div>
+              <p>Search for a City:</p>
+
+              <div class="input-group">
+                <input
+                  id="searchText"
+                  type="text"
+                  class="form-control"
+                  placeholder="City name"
+                  aria-label="Recipient's username"
+                  aria-describedby="basic-addon2"
+                />
+                <button
+                  id="citySearch"
+                  type="submit"
+                  class="btn btn-primary fas fa-search input-group-text"
+                ></button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-9">
+            <div class="card card-body currentConditions" style="display: none">
+              <h5>
+                <span id="cityName"></span>
+                <img id="currentConditionsIcon" />
+              </h5>
+              <p id="temperature"></p>
+              <p id="humidity"></p>
+              <p id="wind"></p>
+              <p>
+                UV Index:
+                <span id="uvIndex" type="button" class="btn"></span>
+              </p>
+            </div>
+            <div class="forecastConditions">
+              <h5>5 Day Forecast:</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </container>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+      crossorigin="anonymous"
+    ></script>
+    <script src="script.js"></script>
+  </body>
+</html>
