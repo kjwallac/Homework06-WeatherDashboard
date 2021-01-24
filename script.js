@@ -36,7 +36,22 @@ async function getForecast(cityName) {
     url: `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${apiKey}`,
     method: "GET",
   });
-  $(".forecastConditions").text(`${response2.list[0].dt_txt}`);
+  console.log(response2);
+  let currentDate = new Date().toLocaleDateString();
+  let cardCount = 0;
+  $("#forecastCards").empty();
+  for (const day of response2.list) {
+    const tempF = (day.main.temp - 273.15) * 1.8 + 32;
+    const date = new Date(day.dt * 1000).toLocaleDateString();
+    if (date !== currentDate) {
+      buildCard(date, day.weather[0].icon, tempF.toFixed(2), day.main.humidity);
+      currentDate = date;
+      cardCount++;
+    }
+    if (cardCount >= 5) {
+      break;
+    }
+  }
 }
 
 async function getUVIndex(lat, lon) {
@@ -83,4 +98,24 @@ function populateHistory() {
     getWeather(cityName);
     getForecast(cityName);
   });
+}
+
+function buildCard(date, icon, temp, humidity) {
+  const html = `<div
+  class="card"
+  style="
+    width: 10rem;
+    background-color: rgb(0, 102, 255);
+    color: white;
+  ">
+  <div class="card-body">
+    <h5 class="card-title">${date}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">
+      <img src="http://openweathermap.org/img/w/${icon}.png" />
+    </h6>
+    <p class="card-text">Temp: <span>${temp}</span>˚F</p>
+    <p class="card-text">Humidity: <span>${humidity}</span>%</p>
+  </div>
+</div>`;
+  $("#forecastCards").append(html);
 }
